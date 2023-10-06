@@ -22,7 +22,7 @@ export default function SignUp() {
     const validationErrors = validateForm(formData);
 
     if (Object.keys(validationErrors).length === 0) {
-      axios.post('http://localhost:3001/register', formData)
+      axios.post('http://localhost:8080/register', formData)
         .then(result => {
           console.log(result);
           navigate('/login');
@@ -79,7 +79,12 @@ export default function SignUp() {
               onChange={handleInputChange}
               className="form-control"
             />
-            {errors.name && <span className="error">{errors.name}</span>}
+            <br />
+            <span className="error-message">
+              {errors.name && (
+                <span className="text-danger">{errors.name}</span>
+              )}
+            </span>
           </div>
           <div className="form-group">
             <label className="lbl" htmlFor="email">Email</label>
@@ -91,7 +96,12 @@ export default function SignUp() {
               onChange={handleInputChange}
               className="form-control"
             />
-            {errors.email && <span className="error">{errors.email}</span>}
+            <br />
+            <span className="error-message">
+              {errors.email && (
+                <span className="text-danger">{errors.email}</span>
+              )}
+            </span>
           </div>
           <div className="form-group">
             <label className="lbl" htmlFor="password">Password</label>
@@ -103,7 +113,12 @@ export default function SignUp() {
               onChange={handleInputChange}
               className="form-control"
             />
-            {errors.password && <span className="error">{errors.password}</span>}
+            <br />
+            <span className="error-message">
+              {errors.password && (
+                <span className="text-danger">{errors.password}</span>
+              )}
+            </span>
           </div>
           <div className="form-group">
             <label className="lbl" htmlFor="confirmPassword">Confirm Password</label>
@@ -115,9 +130,14 @@ export default function SignUp() {
               onChange={handleInputChange}
               className="form-control"
             />
-            {errors.confirmPassword && <span className="error">{errors.confirmPassword}</span>}
+            <br />
+            <span className="error-message">
+              {errors.confirmPassword && (
+                <span className="text-danger">{errors.confirmPassword}</span>
+              )}
+            </span>
           </div>
-          <button type="submit" className="btn btn-success w-100">
+          <button type="submit" className="btn btn-success">
             Sign Up
           </button>
           <p>You agree to our terms and policies</p>

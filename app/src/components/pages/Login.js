@@ -1,31 +1,52 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css"; // Import the CSS file
-import Validation from "./LoginValidation.js";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
-  const navigate = useNavigate()
-
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3001/login', {email, password})
-    .then(result => {console.log(result)
-        if (result.data === "Success") {
-            navigate('/dashboard')
-        }
-    
-})
-.catch((err) => {
-    console.log(err);
-  });
-  
+
+    // Perform validation here
+    const validationErrors = validateForm(email, password);
+
+    if (Object.keys(validationErrors).length === 0) {
+      // If there are no validation errors, submit the form
+      axios
+        .post("http://localhost:8080/login", { email, password })
+        .then((result) => {
+          console.log("Response data:", result.data);
+          if (result.data.message === "Success") {
+            navigate('/dashboard');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      // If there are validation errors, set them in state
+      setErrors(validationErrors);
+    }
+  };
+
+  const validateForm = (email, password) => {
+    const validationErrors = {};
+
+    if (!email.trim()) {
+      validationErrors.email = "Email is required";
+    }
+
+    if (!password.trim()) {
+      validationErrors.password = "Password is required";
+    }
+
+    return validationErrors;
   };
 
   return (
@@ -43,8 +64,9 @@ const Login = () => {
               name="email"
               onChange={(e) => setEmail(e.target.value)}
               className="form-control"
-            /> <br />
-            <span className='error-message'>
+            />
+            <br />
+            <span className="error-message">
               {errors.email && (
                 <span className="text-danger">{errors.email}</span>
               )}
@@ -60,8 +82,9 @@ const Login = () => {
               name="password"
               onChange={(e) => setPassword(e.target.value)}
               className="form-control"
-            /> <br />
-            <span className='error-message'>
+            />
+            <br />
+            <span className="error-message">
               {errors.password && (
                 <span className="text-danger">{errors.password}</span>
               )}

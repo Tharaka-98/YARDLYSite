@@ -10,8 +10,8 @@ function HeroSection() {
         <h1>ADVANCED AWAITS</h1>
         <p>what are you waiting for?</p>
         <div className="hero-btns">
-          <h2>Lawn care and snow removal made easy</h2>
-            {/* <Button 
+          
+            <Button 
             className="btns"
             ButtonStyle="btn--outline"
             buttonSize="btn--large"
@@ -24,7 +24,7 @@ function HeroSection() {
             buttonSize="btn--large"
             >
                 WATCH TRAILER <i className='far fa-play-circle'/>
-            </Button> */}
+            </Button>
         </div>    
     </div>
   )
