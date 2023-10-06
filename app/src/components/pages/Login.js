@@ -9,9 +9,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Clear any previous error message
+    setErrorMessage("");
 
     // Perform validation here
     const validationErrors = validateForm(email, password);
@@ -23,10 +27,14 @@ const Login = () => {
         .then((result) => {
           console.log("Response data:", result.data);
           if (result.data.message === "Success") {
-            navigate('/dashboard');
+            navigate("/dashboard");
+          } else {
+            // Display an error message if login fails
+            setErrorMessage("Invalid email or password. Please try again.");
           }
         })
         .catch((err) => {
+          setErrorMessage("Invalid email or password. Please try again.");
           console.log(err);
         });
     } else {
@@ -90,6 +98,11 @@ const Login = () => {
               )}
             </span>
           </div>
+          <div className="login-error-message"> {/* Use a different class for login error */}
+        {errorMessage && (
+          <span className="text-danger">{errorMessage}</span>
+        )}
+      </div>
           <button type="submit" className="btn btn-success">
             Log in
           </button>

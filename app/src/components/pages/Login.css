@@ -71,3 +71,10 @@
     font-size: 14px; /* Use the desired font size for errors */
     margin-left: 6rem;
 }
+
+.login-error-message {
+  color: #ff0000; /* Use the desired text color for login errors */
+  font-size: 14px; /* Use the desired font size for login errors */
+  margin-left: 6rem; /* Adjust the margin as needed */
+  margin-top: -10px; /* Adjust the margin as needed */
+}
