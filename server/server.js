@@ -36,7 +36,7 @@ app.post('/login', async (req, res) => {
         res.json({ message: "Success", token });
       } else {
         res.status(401).json("The passwords do not match");
-        res
+        
       }
     } else {
       res.status(401).json("No record exists for this email");
